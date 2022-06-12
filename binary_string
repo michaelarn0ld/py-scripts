@@ -1,0 +1,35 @@
+#!/usr/bin/python3
+
+import sys
+from typing import List
+
+num_args: int = len(sys.argv)
+
+if num_args != 2:
+    print("Must pass exactly one argument, exiting...")
+    exit()
+
+try:
+    str_len: int = int(sys.argv[1])
+except ValueError:
+    print("Argument must be an integer")
+    exit()
+
+def binary_string(size: int) -> List[str]:
+    return binary_string_helper(size, "", [])
+
+def binary_string_helper(size: int, binary: str, res: List[str]) -> List[str]:
+    if size == 0:
+        res.append(binary)
+    else:
+        binary_string_helper(size-1, binary + "1", res)
+        binary_string_helper(size-1, binary + "0", res)
+    return res
+
+def main() -> None:
+    all_possible_binary: List[str] = binary_string(str_len)
+    for i in all_possible_binary:
+        print(i)
+
+if __name__ == "__main__":
+    main()
